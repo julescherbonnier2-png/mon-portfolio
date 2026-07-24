@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jules Cherbonnier - Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -23,7 +23,7 @@
     body {
       background: var(--white);
       color: var(--blue);
-      font-family: 'Jost', sans-serif;
+      font-family: 'Roboto', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
       -webkit-user-select: none;
@@ -111,6 +111,8 @@
       font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
       color: var(--accent); margin-bottom: 24px;
       opacity: 0; animation: up 0.9s 0.1s forwards;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
     }
     .header-eyebrow::before { content:''; width: 24px; height: 1.5px; background: var(--accent); }
     .page-title {
@@ -129,6 +131,8 @@
       margin: 0 auto 40px;
       opacity: 0; animation: up 0.9s 0.3s forwards;
       letter-spacing: 0.02em;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
     }
     .cta-button {
       display: inline-block;
@@ -144,6 +148,8 @@
       transition: all 0.3s;
       opacity: 0; animation: up 0.9s 0.4s forwards;
       cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
     }
     .cta-button:hover {
       background: transparent;
@@ -161,8 +167,8 @@
     .cat-tab {
       flex-shrink: 0; padding: 15px 20px;
       border: none; border-bottom: 2px solid transparent;
-      background: none; font-family: 'Jost', sans-serif;
-      font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
+      background: none; font-family: 'Roboto', sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
       color: var(--muted); cursor: pointer;
       transition: color 0.2s, border-color 0.2s; text-decoration: none;
       display: flex; align-items: center; gap: 7px;
@@ -186,10 +192,11 @@
     }
     .cat-icon { font-size: 20px; }
     .cat-badge {
-      font-size: 10px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
       color: var(--accent); padding: 5px 12px; border: 1px solid var(--accent);
       border-radius: 4px;
       background: var(--accent-light);
+      font-family: 'Roboto', sans-serif;
     }
 
     /* ══ GRILLE 3 colonnes, format 3:4 ══ */
@@ -247,6 +254,8 @@
     .photo-num {
       font-size: 9px; letter-spacing: 0.2em; color: var(--accent);
       margin-bottom: 3px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
     }
 
     /* ══ FOOTER ══ */
@@ -255,7 +264,7 @@
       padding: 32px 40px; display: flex; flex-direction: column;
       align-items: center; gap: 16px;
     }
-    .footer-copy { font-size: 11px; color: rgba(247,244,239,0.28); letter-spacing: 0.1em; text-align: center; }
+    .footer-copy { font-size: 11px; color: rgba(247,244,239,0.28); letter-spacing: 0.1em; text-align: center; font-family: 'Roboto', sans-serif; }
 
     @keyframes up {
       from { opacity: 0; transform: translateY(16px); }
