@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>its_my_way - Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -65,7 +65,7 @@
     .menu-nav li { overflow: hidden; }
     .menu-nav a {
       display: block;
-      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300;
       font-size: clamp(44px, 7vw, 88px); line-height: 1.05;
       color: var(--cream); text-decoration: none; letter-spacing: -1px;
       transform: translateY(110%);
@@ -98,7 +98,7 @@
     /* ══ LOGO ══ */
     .site-logo {
       position: fixed; top: 30px; left: 36px; z-index: 600;
-      font-family: 'Cormorant Garamond', serif; font-weight: 600;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600;
       font-size: 20px; letter-spacing: 0.04em;
       color: var(--accent); text-decoration: none; transition: color 0.3s;
     }
@@ -121,7 +121,7 @@
     }
     .header-eyebrow::before { content:''; width: 24px; height: 1.5px; background: var(--accent); }
     .page-title {
-      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300;
       font-size: clamp(52px, 8vw, 96px); line-height: 1.05; letter-spacing: -2px;
       color: var(--blue);
       opacity: 0; animation: up 0.9s 0.2s forwards;
@@ -159,6 +159,15 @@
     .cta-button:hover {
       background: transparent;
       color: var(--accent);
+    }
+
+    .home-avatar {
+      width: 130px; margin: 0 auto 22px;
+      opacity: 0; animation: up 0.9s 0.05s forwards;
+    }
+    .home-avatar img {
+      width: 100%; display: block;
+      filter: invert(20%) sepia(54%) saturate(3742%) hue-rotate(202deg) brightness(90%) contrast(101%);
     }
 
     /* ══ NAV STICKY (catégories, dans la vue galerie) ══ */
@@ -209,7 +218,7 @@
     }
     .cat-title {
       display: flex; align-items: center; gap: 12px;
-      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400;
       font-size: 28px; letter-spacing: -0.5px; color: var(--blue);
     }
     .cat-icon { font-size: 20px; }
@@ -225,7 +234,7 @@
     .subcat-block { margin-bottom: 52px; scroll-margin-top: 130px; }
     .subcat-block:last-child { margin-bottom: 0; }
     .subcat-title {
-      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400;
       font-size: 20px; margin-bottom: 16px; color: var(--blue);
     }
 
@@ -299,7 +308,7 @@
     /* ══ SECTIONS À PROPOS / CONTACT ══ */
     .section-block { padding: 100px 40px; }
     .section-title {
-      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300;
       font-size: clamp(36px, 5vw, 56px); letter-spacing: -1px;
       text-align: center; margin-bottom: 20px; color: var(--blue);
     }
@@ -335,7 +344,7 @@
       transition: all 0.3s;
     }
     .contact-method:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-    .contact-icon { font-size: 17px; }
+    .contact-icon { font-size: 17px; display: inline-flex; align-items: center; }
 
     /* ══ RESPONSIVE ══ */
     @media (max-width: 900px) {
@@ -350,6 +359,7 @@
       .page-title { font-size: clamp(36px, 6vw, 52px); }
       .header-description { font-size: 14px; }
       .section-block { padding: 70px 20px; }
+      .home-avatar { width: 100px; }
     }
     @media (max-width: 900px) {
       .about-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -388,6 +398,7 @@
 <!-- ══════════ VUE 1 : ACCUEIL ══════════ -->
 <div id="view-home" class="view">
   <header id="home" class="page-header">
+    <div class="home-avatar"><img src="avatar.png" alt="Illustration portrait de Jules"></div>
     <div class="header-eyebrow">Étudiant DNMADE Graphisme</div>
     <h1 class="page-title">Mon<br><em>Portfolio.</em></h1>
     <p class="header-description">Étudiant en 2ème année de DNMADE Graphisme je suis passionné par la création visuelle et la photographie. J'essaie de développer mes compétences en explorant progressivement le design, l'affiche, la photo etc. Ce portfolio présente une partie de mes réalisations les plus pertinentes. Je cherche à acquérir des connaissances, des contacts pour progresser.</p>
@@ -429,7 +440,13 @@
         <span class="contact-icon">📞</span> 06 18 07 18 67
       </a>
       <a href="https://www.instagram.com/jules._design/" target="_blank" class="contact-method">
-        <span class="contact-icon">📷</span> @jules._design
+        <span class="contact-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </span> @jules._design
       </a>
     </div>
   </section>
