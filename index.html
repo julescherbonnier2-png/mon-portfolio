@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jules Cherbonnier - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:  #1a1a1a;
+      --cream: #f7f4ef;
+      --white: #ffffff;
+      --muted: #8a9aaa;
+      --rule:  rgba(26,26,26,0.11);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--blue);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* ══ BURGER ══ */
+    .burger-btn {
+      position: fixed; top: 28px; right: 36px; z-index: 600;
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; background: none; border: none;
+    }
+    .burger-box { width: 28px; display: flex; flex-direction: column; gap: 6px; }
+    .burger-box span {
+      display: block; height: 1.5px; background: var(--blue);
+      transition: all 0.4s cubic-bezier(0.76,0,0.24,1); transform-origin: center;
+    }
+    .burger-box span:nth-child(2) { width: 70%; margin-left: auto; }
+    body.menu-open .burger-box span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    body.menu-open .burger-box span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    body.menu-open .burger-box span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    body.menu-open .burger-box span { background: var(--cream); }
+
+    /* ══ MENU PLEIN ÉCRAN ══ */
+    .fullmenu {
+      position: fixed; inset: 0; background: var(--blue); z-index: 500;
+      display: flex; align-items: center; padding: 80px 10vw;
+      clip-path: circle(0% at calc(100% - 60px) 52px);
+      transition: clip-path 0.75s cubic-bezier(0.76,0,0.24,1);
+      pointer-events: none;
+    }
+    body.menu-open .fullmenu { clip-path: circle(150% at calc(100% - 60px) 52px); pointer-events: all; }
+    .menu-nav { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .menu-nav li { overflow: hidden; }
+    .menu-nav a {
+      display: block;
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(44px, 7vw, 88px); line-height: 1.05;
+      color: var(--cream); text-decoration: none; letter-spacing: -1px;
+      transform: translateY(110%);
+      transition: transform 0.7s cubic-bezier(0.76,0,0.24,1), color 0.2s;
+    }
+    .menu-nav a:hover { color: rgba(247,244,239,0.38); }
+    body.menu-open .menu-nav li:nth-child(1) a { transform: translateY(0); transition-delay: 0.14s; }
+    body.menu-open .menu-nav li:nth-child(2) a { transform: translateY(0); transition-delay: 0.20s; }
+    body.menu-open .menu-nav li:nth-child(3) a { transform: translateY(0); transition-delay: 0.26s; }
+    body.menu-open .menu-nav li:nth-child(4) a { transform: translateY(0); transition-delay: 0.32s; }
+    body.menu-open .menu-nav li:nth-child(5) a { transform: translateY(0); transition-delay: 0.38s; }
+    body.menu-open .menu-nav li:nth-child(6) a { transform: translateY(0); transition-delay: 0.44s; }
+    .menu-footer {
+      position: absolute; bottom: 40px; left: 10vw; right: 10vw;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      opacity: 0; transition: opacity 0.4s 0.55s;
+    }
+    body.menu-open .menu-footer { opacity: 1; }
+    .menu-email { font-size: 13px; color: rgba(247,244,239,0.35); letter-spacing: 0.06em; }
+    .menu-socials { display: flex; gap: 24px; }
+    .menu-socials a {
+      font-size: 11px; color: rgba(247,244,239,0.3);
+      text-decoration: none; letter-spacing: 0.15em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .menu-socials a:hover { color: var(--cream); }
+
+    /* ══ LOGO ══ */
+    .site-logo {
+      position: fixed; top: 30px; left: 36px; z-index: 600;
+      font-family: 'Cormorant Garamond', serif; font-weight: 600;
+      font-size: 20px; letter-spacing: 0.04em;
+      color: var(--blue); text-decoration: none; transition: color 0.3s;
+    }
+    body.menu-open .site-logo { color: var(--cream); }
+
+    /* ══ PAGE HEADER (HERO) ══ */
+    .page-header {
+      padding: 200px 40px 100px;
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+    .header-eyebrow {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 24px;
+      opacity: 0; animation: up 0.9s 0.1s forwards;
+    }
+    .header-eyebrow::before { content:''; width: 24px; height: 1px; background: var(--muted); }
+    .page-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(52px, 8vw, 96px); line-height: 1.05; letter-spacing: -2px;
+      color: var(--blue);
+      opacity: 0; animation: up 0.9s 0.2s forwards;
+      margin-bottom: 24px;
+    }
+    .page-title em { font-style: italic; color: var(--muted); }
+    .header-description {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.8;
+      margin: 0 auto 40px;
+      opacity: 0; animation: up 0.9s 0.3s forwards;
+      letter-spacing: 0.02em;
+    }
+    .cta-button {
+      display: inline-block;
+      padding: 14px 40px;
+      background: var(--blue);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--blue);
+      transition: all 0.3s;
+      opacity: 0; animation: up 0.9s 0.4s forwards;
+    }
+    .cta-button:hover {
+      background: transparent;
+      color: var(--blue);
+    }
+
+    /* ══ NAV STICKY ══ */
+    .cat-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white); border-bottom: 1px solid var(--rule);
+      padding: 0 40px; display: flex; overflow-x: auto; scrollbar-width: none;
+      opacity: 0; animation: up 0.7s 0.45s forwards;
+    }
+    .cat-nav::-webkit-scrollbar { display: none; }
+    .cat-tab {
+      flex-shrink: 0; padding: 15px 20px;
+      border: none; border-bottom: 2px solid transparent;
+      background: none; font-family: 'Jost', sans-serif;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer;
+      transition: color 0.2s, border-color 0.2s; text-decoration: none;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .cat-tab:hover { color: var(--blue); }
+    .cat-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+    /* ══ SECTION CATÉGORIE ══ */
+    .cat-section { padding: 56px 40px 0; }
+    .cat-section:last-of-type { padding-bottom: 72px; }
+
+    .cat-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .cat-title {
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 28px; letter-spacing: -0.5px; color: var(--blue);
+    }
+    .cat-icon { font-size: 20px; }
+    .cat-badge {
+      font-size: 10px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); padding: 5px 12px; border: 1px solid var(--rule);
+    }
+
+    /* ══ GRILLE 3 colonnes, format 3:4 ══ */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    /* ══ CARTE PHOTO ══ */
+    .photo-card {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #d8dde2;
+      cursor: pointer;
+    }
+    .photo-card::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 10;
+      -webkit-user-drag: none;
+    }
+    .photo-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      transition: transform 0.7s cubic-bezier(0.76,0,0.24,1), filter 0.3s;
+      filter: saturate(0.88) brightness(0.98);
+      pointer-events: none;
+    }
+    .photo-card:hover .photo-bg {
+      transform: scale(1.06);
+      filter: saturate(1.05) brightness(1.02);
+    }
+    .photo-overlay {
+      position: absolute; inset: 0; z-index: 5;
+      background: linear-gradient(to top, rgba(26,26,26,0.78) 0%, transparent 48%);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 16px 14px; pointer-events: none;
+    }
+    .photo-card:hover .photo-overlay { opacity: 1; }
+    .photo-meta {
+      transform: translateY(8px); opacity: 0;
+      transition: transform 0.3s 0.04s, opacity 0.3s 0.04s;
+    }
+    .photo-card:hover .photo-meta { transform: none; opacity: 1; }
+    .photo-num {
+      font-size: 9px; letter-spacing: 0.2em; color: rgba(255,255,255,0.4);
+      margin-bottom: 3px;
+    }
+
+    /* ══ FOOTER ══ */
+    footer {
+      background: var(--blue); border-top: 1px solid rgba(247,244,239,0.06);
+      padding: 32px 40px; display: flex; flex-direction: column;
+      align-items: center; gap: 16px;
+    }
+    .footer-copy { font-size: 11px; color: rgba(247,244,239,0.28); letter-spacing: 0.1em; text-align: center; }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 900px) {
+      .page-header, .cat-section { padding-left: 20px; padding-right: 20px; }
+      .cat-nav { padding: 0 20px; }
+      footer { padding: 24px 20px; }
+      .burger-btn { right: 16px; }
+      .site-logo { left: 16px; }
+    }
+    @media (max-width: 560px) {
+      .photo-grid { grid-template-columns: repeat(2,1fr); }
+      .page-title { font-size: clamp(36px, 6vw, 52px); }
+      .header-description { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#" class="site-logo">JC.</a>
+
+<button class="burger-btn" id="burgerBtn" aria-label="Menu">
+  <div class="burger-box"><span></span><span></span><span></span></div>
+</button>
+
+<div class="fullmenu" id="fullMenu">
+  <div>
+    <ul class="menu-nav">
+      <li><a href="#accueil" class="menu-link">Accueil</a></li>
+      <li><a href="#photographies" class="menu-link">Photographies</a></li>
+      <li><a href="#affiches" class="menu-link">Affiches</a></li>
+      <li><a href="#logo" class="menu-link">Logo</a></li>
+      <li><a href="#web" class="menu-link">Web</a></li>
+      <li><a href="#editions" class="menu-link">Éditions</a></li>
+    </ul>
+  </div>
+  <div class="menu-footer">
+    <div class="menu-email">jules.cherbonnier.pro@gmail.com</div>
+    <div class="menu-socials">
+      <a href="https://instagram.com/jules_.design" target="_blank">Instagram</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO ACCUEIL -->
+<header id="accueil" class="page-header">
+  <div class="header-eyebrow">Étudiant DNMADE Graphisme</div>
+  <h1 class="page-title">Mon<br><em>Portfolio.</em></h1>
+  <p class="header-description">Étudiant en 2ème année de DNMADE Graphisme je suis passionné par la création visuelle et la photographie. J'essaie de développer mes compétences en explorant progressivement le design, l'affiche, la photo etc. Ce portfolio présente une partie de mes réalisations les plus pertinentes. Je cherche à acquérir des connaissances, des contacts pour progresser.</p>
+  <a href="#photographies" class="cta-button">Découvrir</a>
+</header>
+
+<!-- NAV STICKY -->
+<nav class="cat-nav">
+  <a href="#photographies"  class="cat-tab active" data-target="photographies">Photographies</a>
+  <a href="#affiches"       class="cat-tab" data-target="affiches">Affiches</a>
+  <a href="#logo"           class="cat-tab" data-target="logo">Logo</a>
+  <a href="#web"            class="cat-tab" data-target="web">Web</a>
+  <a href="#editions"       class="cat-tab" data-target="editions">Éditions</a>
+</nav>
+
+<!-- ══════════ PHOTOGRAPHIES ══════════ -->
+<section class="cat-section" id="photographies">
+  <div class="cat-header">
+    <div class="cat-title"><span class="cat-icon">📷</span> Photographies</div>
+    <div class="cat-badge">Bientôt</div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Photo+1')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">001</div></div></div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Photo+2')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">002</div></div></div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Photo+3')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">003</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ AFFICHES ══════════ -->
+<section class="cat-section" id="affiches">
+  <div class="cat-header">
+    <div class="cat-title"><span class="cat-icon">🎨</span> Affiches</div>
+    <div class="cat-badge">Bientôt</div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Affiche+1')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">001</div></div></div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Affiche+2')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">002</div></div></div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Affiche+3')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">003</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ LOGO ══════════ -->
+<section class="cat-section" id="logo">
+  <div class="cat-header">
+    <div class="cat-title"><span class="cat-icon">✏️</span> Logo</div>
+    <div class="cat-badge">Bientôt</div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Logo+1')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">001</div></div></div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Logo+2')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">002</div></div></div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Logo+3')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">003</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ WEB ══════════ -->
+<section class="cat-section" id="web">
+  <div class="cat-header">
+    <div class="cat-title"><span class="cat-icon">🌐</span> Web</div>
+    <div class="cat-badge">Bientôt</div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Web+1')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">001</div></div></div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Web+2')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">002</div></div></div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Web+3')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">003</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ÉDITIONS ══════════ -->
+<section class="cat-section" id="editions">
+  <div class="cat-header">
+    <div class="cat-title"><span class="cat-icon">📚</span> Éditions</div>
+    <div class="cat-badge">Bientôt</div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Édition+1')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">001</div></div></div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Édition+2')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">002</div></div></div>
+    </div>
+    <div class="photo-card">
+      <div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Édition+3')"></div>
+      <div class="photo-overlay"><div class="photo-meta"><div class="photo-num">003</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-copy">&copy; 2024 Jules Cherbonnier. Tous droits réservés.</p>
+</footer>
+
+<script>
+  /* ── Burger ── */
+  document.getElementById('burgerBtn').addEventListener('click', () =>
+    document.body.classList.toggle('menu-open')
+  );
+  document.querySelectorAll('.menu-link').forEach(a =>
+    a.addEventListener('click', () => document.body.classList.remove('menu-open'))
+  );
+
+  /* ── Nav sticky active au scroll ── */
+  const ids = ['photographies','affiches','logo','web','editions'];
+  const tabs = document.querySelectorAll('.cat-tab[data-target]');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting)
+        tabs.forEach(t => t.classList.toggle('active', t.dataset.target === e.target.id));
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  ids.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+  tabs.forEach(tab => {
+    tab.addEventListener('click', e => {
+      e.preventDefault();
+      const el = document.getElementById(tab.dataset.target);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
