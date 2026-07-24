@@ -284,6 +284,58 @@
       .page-title { font-size: clamp(36px, 6vw, 52px); }
       .header-description { font-size: 14px; }
     }
+    /* ══ SECTIONS À PROPOS / CONTACT ══ */
+.section-block { padding: 100px 40px; }
+.section-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(36px, 5vw, 56px); letter-spacing: -1px;
+  text-align: center; margin-bottom: 20px; color: var(--blue);
+}
+.section-title em { font-style: italic; color: var(--accent); }
+
+.about-section { background: var(--cream); }
+.about-grid {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px;
+  max-width: 1000px; margin: 50px auto 0; align-items: start;
+}
+.about-text p {
+  color: var(--muted); font-size: 16px; line-height: 1.9;
+  margin-bottom: 20px; font-weight: 300;
+}
+.info-list { display: flex; flex-direction: column; gap: 16px; }
+.info-card {
+  background: var(--white); border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent); border-radius: 4px; padding: 22px 24px;
+}
+.info-card h3 {
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 8px; font-weight: 500;
+}
+.info-card p { font-size: 15px; color: var(--blue); font-weight: 400; }
+
+.contact-section { text-align: center; }
+.contact-intro { max-width: 500px; margin: 0 auto 50px; color: var(--muted); font-size: 16px; font-weight: 300; }
+.contact-methods { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+.contact-method {
+  display: flex; align-items: center; gap: 10px;
+  padding: 15px 26px; border: 1px solid var(--rule); border-radius: 4px;
+  text-decoration: none; color: var(--blue); font-size: 14px; font-weight: 400;
+  transition: all 0.3s;
+}
+.contact-method:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+.contact-icon { font-size: 17px; }
+
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 560px) {
+  .section-block { padding: 70px 20px; }
+}
+
+/* animation des menu-nav li 7 et 8 (À propos + Contact ajoutés au menu) */
+body.menu-open .menu-nav li:nth-child(7) a { transform: translateY(0); transition-delay: 0.50s; }
+body.menu-open .menu-nav li:nth-child(8) a { transform: translateY(0); transition-delay: 0.56s; }
+    
   </style>
 </head>
 <body>
