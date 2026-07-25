@@ -329,7 +329,16 @@
       object-fit: contain;
       border-radius: 4px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-      pointer-events: none;
+      cursor: grab;
+      transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-img.dragging {
+      cursor: grabbing;
+      transition: box-shadow 0.25s ease-out;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
     }
     .lightbox-close {
       position: fixed; top: 24px; right: 32px;
@@ -649,6 +658,8 @@
   function closeLightbox() {
     lightbox.classList.remove('active');
     lightboxImg.src = '';
+    lightboxImg.style.transform = '';
+    lightboxImg.classList.remove('dragging');
   }
 
   document.addEventListener('click', (e) => {
@@ -662,6 +673,41 @@
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ── Effet 3D : bascule l'image selon la position de la souris pendant le clic maintenu ── */
+  let tilting = false;
+
+  function applyTilt(clientX, clientY) {
+    const rect = lightboxImg.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (clientX - cx) / (rect.width / 2);
+    const dy = (clientY - cy) / (rect.height / 2);
+    const maxTilt = 16;
+    const rotateY = Math.max(-1, Math.min(1, dx)) * maxTilt;
+    const rotateX = Math.max(-1, Math.min(1, dy)) * -maxTilt;
+    lightboxImg.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+  }
+  function startTilt() {
+    tilting = true;
+    lightboxImg.classList.add('dragging');
+  }
+  function endTilt() {
+    if (!tilting) return;
+    tilting = false;
+    lightboxImg.classList.remove('dragging');
+    lightboxImg.style.transform = '';
+  }
+
+  lightboxImg.addEventListener('mousedown', (e) => { e.preventDefault(); startTilt(); });
+  window.addEventListener('mousemove', (e) => { if (tilting) applyTilt(e.clientX, e.clientY); });
+  window.addEventListener('mouseup', endTilt);
+
+  lightboxImg.addEventListener('touchstart', (e) => { startTilt(); }, { passive: true });
+  lightboxImg.addEventListener('touchmove', (e) => {
+    if (tilting && e.touches[0]) applyTilt(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  lightboxImg.addEventListener('touchend', endTilt);
 
   /* ── Dissuasion : désactive le clic droit "Enregistrer l'image" sur les photos ── */
   document.addEventListener('contextmenu', (e) => {
