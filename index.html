@@ -257,6 +257,27 @@
       gap: 6px;
     }
 
+    /* ══ SÉRIE EN SLIDER HORIZONTAL (ex: Affiches) ══ */
+    .series-block { margin-bottom: 44px; }
+    .series-block:last-child { margin-bottom: 0; }
+    .series-title {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400;
+      font-size: 15px; letter-spacing: 0.04em; color: var(--blue);
+      margin-bottom: 14px;
+    }
+    .series-title::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+    .series-row {
+      display: flex; gap: 10px;
+      overflow-x: auto; scroll-snap-type: x proximity;
+      scrollbar-width: none; padding-bottom: 4px;
+    }
+    .series-row::-webkit-scrollbar { display: none; }
+    .series-row .photo-card {
+      flex: 0 0 auto; width: 240px;
+      scroll-snap-align: start;
+    }
+
     /* ══ CARTE PHOTO ══ */
     .photo-card {
       position: relative;
@@ -411,6 +432,7 @@
       .section-block { padding: 70px 20px; }
       .title-row { flex-direction: column; gap: 10px; }
       .home-avatar { width: 100px; }
+      .series-row .photo-card { width: 170px; }
     }
   </style>
 </head>
@@ -570,7 +592,7 @@
     <div class="cat-header">
       <div class="cat-title"><span class="cat-icon">🎨</span> Affiches</div>
     </div>
-    <div class="photo-grid" id="grid-affiches"></div>
+    <div id="affiches-series"></div>
   </section>
 
   <!-- ══════════ LOGO ══════════ -->
@@ -621,8 +643,42 @@
      Exemple : 'rue-01.jpg', 'rue-02.jpg', ...
      L'ordre de la liste = l'ordre d'affichage sur le site.
      ══════════════════════════════════════════════════════════ */
+  /* ══════════════════════════════════════════════════════════
+     AFFICHES — organisées par série
+     ──────────────────────────────────────────────────────────
+     Chaque série a un titre et sa propre liste de fichiers.
+     Pour ajouter une nouvelle série (différente de la première),
+     ajoute simplement un nouvel objet { title, folder, files }
+     ci-dessous : elle apparaîtra dans son propre slider, séparée
+     des autres.
+     ══════════════════════════════════════════════════════════ */
+  const affichesSeries = [
+    {
+      title: 'Artists Posters',
+      folder: 'IMAGES/AFFICHES/',
+      files: ['zola.jpg', 'ninho.jpg', 'gazo.jpg', 'wallace.jpg', 'timar.jpg'],
+    },
+  ];
+
+  function renderAffichesSeries() {
+    const container = document.getElementById('affiches-series');
+    if (!container) return;
+    container.innerHTML = affichesSeries.map(({ title, folder, files }) => `
+      <div class="series-block">
+        <div class="series-title">${title}</div>
+        <div class="series-row">
+          ${files.map((file) => `
+            <div class="photo-card fit-contain">
+              <div class="photo-bg" style="background-image:url('${folder}${file}')"></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+  renderAffichesSeries();
+
   const gallery = {
-    'grid-affiches':        { folder: 'IMAGES/AFFICHES/',                     mode: 'contain', files: ['zola.jpg', 'ninho.jpg', 'gazo.jpg', 'wallace.jpg', 'timar.jpg'] },
     'grid-logos':           { folder: 'IMAGES/LOGOS/',                        mode: 'contain', files: ['edulab.jpg'] },
     'grid-webs':            { folder: 'IMAGES/WEBS/',                         mode: 'contain', files: [] },
     'grid-editions':        { folder: 'IMAGES/EDITIONS/',                     mode: 'contain', files: ['edition-1.jpeg', 'edition-2.jpeg', 'edition-3.jpeg'] },
