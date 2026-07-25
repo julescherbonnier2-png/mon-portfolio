@@ -108,11 +108,14 @@
       padding: 200px 40px 100px;
       display: flex; justify-content: center; align-items: center;
       min-height: 100vh;
-      flex-direction: column;
-      text-align: center;
     }
+    .hero-inner {
+      display: flex; align-items: center; justify-content: center;
+      gap: 64px; max-width: 1100px; width: 100%;
+    }
+    .hero-text { flex: 1; max-width: 600px; text-align: left; }
     .header-eyebrow {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      display: inline-flex; align-items: center; justify-content: flex-start; gap: 10px;
       font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
       color: var(--accent); margin-bottom: 24px;
       opacity: 0; animation: up 0.9s 0.1s forwards;
@@ -122,7 +125,7 @@
     .header-eyebrow::before { content:''; width: 24px; height: 1.5px; background: var(--accent); }
     .page-title {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300;
-      font-size: clamp(52px, 8vw, 96px); line-height: 1.05; letter-spacing: -2px;
+      font-size: clamp(48px, 6vw, 80px); line-height: 1.05; letter-spacing: -2px;
       color: var(--blue);
       opacity: 0; animation: up 0.9s 0.2s forwards;
       margin-bottom: 24px;
@@ -131,9 +134,8 @@
     .header-description {
       font-size: 16px;
       color: var(--muted);
-      max-width: 600px;
       line-height: 1.8;
-      margin: 0 auto 40px;
+      margin: 0 0 40px;
       opacity: 0; animation: up 0.9s 0.3s forwards;
       letter-spacing: 0.02em;
       font-family: 'Roboto', sans-serif;
@@ -162,13 +164,18 @@
     }
 
     .home-avatar {
-      width: 130px; margin: 0 auto 22px;
-      opacity: 0; animation: up 0.9s 0.05s forwards;
+      width: 260px; flex-shrink: 0;
+      opacity: 0; animation: up 0.9s 0.05s forwards, tilt 0.9s 0.05s forwards;
     }
     .home-avatar img {
       width: 100%; display: block;
       filter: invert(20%) sepia(54%) saturate(3742%) hue-rotate(202deg) brightness(90%) contrast(101%);
     }
+    @keyframes tilt {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(-7deg); }
+    }
+
 
     /* ══ NAV STICKY (catégories, dans la vue galerie) ══ */
     .cat-nav {
@@ -353,16 +360,18 @@
       footer { padding: 24px 20px; }
       .burger-btn { right: 16px; }
       .site-logo { left: 16px; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .hero-inner { flex-direction: column-reverse; gap: 32px; text-align: center; }
+      .hero-text { text-align: center; max-width: 100%; }
+      .header-eyebrow { justify-content: center; }
+      .home-avatar { width: 170px; }
     }
     @media (max-width: 560px) {
       .photo-grid { grid-template-columns: repeat(2,1fr); }
       .page-title { font-size: clamp(36px, 6vw, 52px); }
       .header-description { font-size: 14px; }
       .section-block { padding: 70px 20px; }
-      .home-avatar { width: 100px; }
-    }
-    @media (max-width: 900px) {
-      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .home-avatar { width: 120px; }
     }
   </style>
 </head>
@@ -398,19 +407,23 @@
 <!-- ══════════ VUE 1 : ACCUEIL ══════════ -->
 <div id="view-home" class="view">
   <header id="home" class="page-header">
-    <div class="home-avatar"><img src="avatar.png" alt="Illustration portrait de Jules"></div>
-    <div class="header-eyebrow">Étudiant DNMADE Graphisme</div>
-    <h1 class="page-title">Mon<br><em>Portfolio.</em></h1>
-    <p class="header-description">Étudiant en 2ème année de DNMADE Graphisme je suis passionné par la création visuelle et la photographie. J'essaie de développer mes compétences en explorant progressivement le design, l'affiche, la photo etc. Ce portfolio présente une partie de mes réalisations les plus pertinentes. Je cherche à acquérir des connaissances, des contacts pour progresser.</p>
-    <a href="#gallery" class="cta-button">Découvrir</a>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="header-eyebrow">Étudiant DNMADE Graphisme</div>
+        <h1 class="page-title">Mon<br><em>Portfolio.</em></h1>
+        <p class="header-description">Étudiant en 2ème année de DNMADE Graphisme à Rennes, je capture et je crée — entre photographie, affiche et design graphique. Bienvenue dans mon univers visuel.</p>
+        <a href="#gallery" class="cta-button">Découvrir</a>
+      </div>
+      <div class="home-avatar"><img src="avatar.png" alt="Illustration portrait de Jules"></div>
+    </div>
   </header>
 
   <section class="section-block about-section" id="apropos">
     <h2 class="section-title">À propos <em>de moi</em></h2>
     <div class="about-grid">
       <div class="about-text">
-        <p>Étudiant en 2ème année de DNMADE Graphisme, je suis passionné par la création visuelle et la photographie. J'explore progressivement le design, l'affiche, le web et la photo à travers mes projets d'études et mes créations personnelles.</p>
-        <p>Je cherche aujourd'hui à acquérir de nouvelles compétences, à multiplier les rencontres et à faire évoluer mon regard créatif à travers de nouveaux projets et collaborations.</p>
+        <p>Passionné de création visuelle depuis toujours, j'ai choisi le DNMADE Graphisme pour transformer cette passion en véritable pratique : identité visuelle, affiche, web, édition... j'aime toucher à tout pour construire un regard qui m'est propre. La photographie occupe une place à part dans mon travail, comme un terrain d'expérimentation libre en dehors du cadre scolaire.</p>
+        <p>À travers ce portfolio, je cherche autant à montrer mes réalisations qu'à provoquer des rencontres : collaborations, retours, opportunités... Si un projet t'inspire ou que tu veux simplement échanger, n'hésite pas à me contacter.</p>
       </div>
       <div class="info-list">
         <div class="info-card">
