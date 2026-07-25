@@ -288,7 +288,7 @@
     }
     .series-row::-webkit-scrollbar { display: none; }
     .series-row .photo-card {
-      flex: 0 0 auto; width: 240px;
+      flex: 0 0 auto; width: calc((100% - 12px) / 3);
       scroll-snap-align: start;
     }
 
@@ -446,7 +446,7 @@
       .section-block { padding: 70px 20px; }
       .title-row { flex-direction: column; gap: 10px; }
       .home-avatar { width: 100px; }
-      .series-row .photo-card { width: 170px; }
+      .series-row .photo-card { width: calc((100% - 6px) / 2); }
     }
   </style>
 </head>
