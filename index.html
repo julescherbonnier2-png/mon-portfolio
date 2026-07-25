@@ -33,6 +33,7 @@
     /* ══ VUES (pages) ══ */
     .view { display: none; }
     .view.active { display: block; }
+    #view-gallery.active { padding-top: 84px; }
 
     /* ══ BURGER ══ */
     .burger-btn {
@@ -179,7 +180,7 @@
 
     /* ══ NAV STICKY (catégories, dans la vue galerie) ══ */
     .cat-nav {
-      position: sticky; top: 0; z-index: 100;
+      position: sticky; top: 84px; z-index: 100;
       background: var(--white); border-bottom: 1px solid var(--rule);
       padding: 0 40px; display: flex; overflow-x: auto; scrollbar-width: none;
     }
@@ -215,7 +216,7 @@
     }
 
     /* ══ SECTION CATÉGORIE ══ */
-    .cat-section { padding: 56px 40px 0; scroll-margin-top: 60px; }
+    .cat-section { padding: 56px 40px 0; scroll-margin-top: 140px; }
     .cat-section:last-of-type { padding-bottom: 72px; }
 
     .cat-header {
@@ -238,7 +239,7 @@
     }
 
     /* ══ BLOC SOUS-CATÉGORIE ══ */
-    .subcat-block { margin-bottom: 52px; scroll-margin-top: 130px; }
+    .subcat-block { margin-bottom: 52px; scroll-margin-top: 210px; }
     .subcat-block:last-child { margin-bottom: 0; }
     .subcat-title {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400;
