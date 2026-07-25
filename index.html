@@ -315,6 +315,29 @@
     }
     .footer-copy { font-size: 11px; color: rgba(247,244,239,0.28); letter-spacing: 0.1em; text-align: center; font-family: 'Roboto', sans-serif; }
 
+    /* ══ LIGHTBOX ══ */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(7,57,138,0.94);
+      display: none; align-items: center; justify-content: center;
+      padding: 60px 30px;
+      cursor: zoom-out;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox-img {
+      max-width: 90vw; max-height: 88vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      pointer-events: none;
+    }
+    .lightbox-close {
+      position: fixed; top: 24px; right: 32px;
+      background: none; border: none; color: var(--cream);
+      font-size: 32px; line-height: 1; cursor: pointer;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
     @keyframes up {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -571,6 +594,12 @@
   <p class="footer-copy">&copy; 2026 its_my_way. Tous droits réservés.</p>
 </footer>
 
+<!-- ══════════ LIGHTBOX (agrandissement des images) ══════════ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">&times;</button>
+  <img class="lightbox-img" id="lightboxImg" alt="Image agrandie">
+</div>
+
 <script>
   /* ══════════════════════════════════════════════════════════
      TES PHOTOS / CRÉATIONS
@@ -608,6 +637,37 @@
     });
   }
   renderGalleries();
+
+  /* ── Lightbox : agrandir une image au clic ── */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+
+  function openLightbox(src) {
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightboxImg.src = '';
+  }
+
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.photo-card');
+    if (card) {
+      const bg = card.querySelector('.photo-bg');
+      const url = bg.style.backgroundImage.slice(5, -2); // retire url(" ... ")
+      openLightbox(url);
+    }
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ── Dissuasion : désactive le clic droit "Enregistrer l'image" sur les photos ── */
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target.closest('.photo-card') || e.target === lightboxImg) e.preventDefault();
+  });
+  lightboxImg.addEventListener('dragstart', (e) => e.preventDefault());
 
   /* ── Burger ── */
   document.getElementById('burgerBtn').addEventListener('click', () =>
