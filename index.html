@@ -265,6 +265,7 @@
     }
 
     /* ══ GRILLE 3 colonnes, format 3:4 ══ */
+    #grid-affiches-independantes { margin-bottom: 44px; }
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -623,6 +624,8 @@
     <div class="cat-header">
       <div class="cat-title"><span class="cat-icon">🎨</span> Affiches</div>
     </div>
+    <div class="series-title">Indépendantes</div>
+    <div class="photo-grid" id="grid-affiches-independantes"></div>
     <div id="affiches-series"></div>
   </section>
 
@@ -689,6 +692,11 @@
       folder: 'IMAGES/AFFICHES/',
       files: ['zola.jpg', 'ninho.jpg', 'gazo.jpg', 'wallace.jpg', 'timar.jpg'],
     },
+    {
+      title: 'Opéra - Written on skin',
+      folder: 'IMAGES/AFFICHES/',
+      files: ['affiche-3.jpg', 'affiche-4.jpg', 'affiche-5.jpg', 'affiche-6.jpg'],
+    },
   ];
 
   function renderAffichesSeries() {
@@ -737,9 +745,10 @@
   });
 
   const gallery = {
+    'grid-affiches-independantes': { folder: 'IMAGES/AFFICHES/',              mode: 'contain', files: ['affiche-1.jpeg', 'affiche-2.jpeg'] },
     'grid-logos':           { folder: 'IMAGES/LOGOS/',                        mode: 'contain', files: ['edulab.jpg'] },
     'grid-webs':            { folder: 'IMAGES/WEBS/',                         mode: 'contain', files: [] },
-    'grid-editions':        { folder: 'IMAGES/EDITIONS/',                     mode: 'contain', files: ['edition-1.jpeg', 'edition-2.jpeg', 'edition-3.jpeg'] },
+    'grid-editions':        { folder: 'IMAGES/EDITIONS/',                     mode: 'contain', files: ['edition-1.jpeg', 'edition-2.jpeg', 'edition-3.jpeg', 'edition-4.jpeg'] },
     'grid-photo-rue':       { folder: 'IMAGES/PHOTOGRAPHIES/RUE/',            mode: 'cover',   files: ['rue-1.jpeg', 'rue-2.jpeg', 'rue-3.jpeg'] },
     'grid-photo-animaux':   { folder: 'IMAGES/PHOTOGRAPHIES/ANIMAUX/',        mode: 'cover',   files: ['animaux-1.jpeg', 'animaux-2.jpeg'] },
     'grid-photo-sport':     { folder: 'IMAGES/PHOTOGRAPHIES/SPORT/',          mode: 'cover',   files: ['sports-1.jpeg', 'sports-2.jpeg'] },
