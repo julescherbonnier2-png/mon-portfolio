@@ -281,6 +281,23 @@
       margin-bottom: 14px;
     }
     .series-title::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+    .series-hint {
+      display: flex; align-items: center; gap: 6px;
+      font-family: 'Roboto', sans-serif; font-size: 11px; letter-spacing: 0.06em;
+      color: var(--muted); margin: -6px 0 14px;
+    }
+    .series-hint span { display: inline-block; animation: hintNudge 1.4s ease-in-out infinite; }
+    @keyframes hintNudge {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+    .series-viewport { position: relative; }
+    .series-fade {
+      position: absolute; top: 0; right: 0; bottom: 4px; width: 56px;
+      background: linear-gradient(to right, rgba(255,255,255,0), var(--white));
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
     .series-row {
       display: flex; gap: 10px;
       overflow-x: auto; scroll-snap-type: x proximity;
@@ -680,17 +697,33 @@
     container.innerHTML = affichesSeries.map(({ title, folder, files }) => `
       <div class="series-block">
         <div class="series-title">${title}</div>
-        <div class="series-row">
-          ${files.map((file) => `
-            <div class="photo-card fit-contain">
-              <div class="photo-bg" style="background-image:url('${folder}${file}')"></div>
-            </div>
-          `).join('')}
+        ${files.length > 3 ? '<div class="series-hint">Glisse pour voir toute la série <span>→</span></div>' : ''}
+        <div class="series-viewport">
+          <div class="series-row">
+            ${files.map((file) => `
+              <div class="photo-card fit-contain">
+                <div class="photo-bg" style="background-image:url('${folder}${file}')"></div>
+              </div>
+            `).join('')}
+          </div>
+          ${files.length > 3 ? '<div class="series-fade"></div>' : ''}
         </div>
       </div>
     `).join('');
   }
   renderAffichesSeries();
+
+  document.querySelectorAll('.series-viewport').forEach((viewport) => {
+    const row = viewport.querySelector('.series-row');
+    const fade = viewport.querySelector('.series-fade');
+    if (!row || !fade) return;
+    const updateFade = () => {
+      const atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4;
+      fade.style.opacity = atEnd ? '0' : '1';
+    };
+    row.addEventListener('scroll', updateFade, { passive: true });
+    updateFade();
+  });
 
   /* ── Le logo ramène toujours à l'accueil (même si le hash ne change pas) ── */
   document.getElementById('siteLogo').addEventListener('click', (e) => {
