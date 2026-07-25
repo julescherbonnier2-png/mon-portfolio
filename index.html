@@ -56,33 +56,34 @@
     /* ══ MENU PLEIN ÉCRAN ══ */
     .fullmenu {
       position: fixed; inset: 0; background: var(--blue); z-index: 500;
-      display: flex; align-items: center; padding: 80px 10vw;
+      display: flex; flex-direction: column; align-items: stretch; justify-content: center;
+      padding: 90px 10vw;
       clip-path: circle(0% at calc(100% - 60px) 52px);
       transition: clip-path 0.75s cubic-bezier(0.76,0,0.24,1);
       pointer-events: none;
+      overflow-y: auto;
     }
     body.menu-open .fullmenu { clip-path: circle(150% at calc(100% - 60px) 52px); pointer-events: all; }
-    .menu-nav { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .menu-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; margin-bottom: 48px; }
     .menu-nav li { overflow: hidden; }
     .menu-nav a {
       display: block;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300;
-      font-size: clamp(44px, 7vw, 88px); line-height: 1.05;
+      font-size: clamp(24px, 3.4vw, 48px); line-height: 1.12;
       color: var(--cream); text-decoration: none; letter-spacing: -1px;
       transform: translateY(110%);
       transition: transform 0.7s cubic-bezier(0.76,0,0.24,1), color 0.2s;
     }
     .menu-nav a:hover { color: #9fc1f0; }
-    body.menu-open .menu-nav li:nth-child(1) a { transform: translateY(0); transition-delay: 0.14s; }
-    body.menu-open .menu-nav li:nth-child(2) a { transform: translateY(0); transition-delay: 0.20s; }
-    body.menu-open .menu-nav li:nth-child(3) a { transform: translateY(0); transition-delay: 0.26s; }
-    body.menu-open .menu-nav li:nth-child(4) a { transform: translateY(0); transition-delay: 0.32s; }
-    body.menu-open .menu-nav li:nth-child(5) a { transform: translateY(0); transition-delay: 0.38s; }
-    body.menu-open .menu-nav li:nth-child(6) a { transform: translateY(0); transition-delay: 0.44s; }
-    body.menu-open .menu-nav li:nth-child(7) a { transform: translateY(0); transition-delay: 0.50s; }
-    body.menu-open .menu-nav li:nth-child(8) a { transform: translateY(0); transition-delay: 0.56s; }
+    body.menu-open .menu-nav li:nth-child(1) a { transform: translateY(0); transition-delay: 0.10s; }
+    body.menu-open .menu-nav li:nth-child(2) a { transform: translateY(0); transition-delay: 0.15s; }
+    body.menu-open .menu-nav li:nth-child(3) a { transform: translateY(0); transition-delay: 0.20s; }
+    body.menu-open .menu-nav li:nth-child(4) a { transform: translateY(0); transition-delay: 0.25s; }
+    body.menu-open .menu-nav li:nth-child(5) a { transform: translateY(0); transition-delay: 0.30s; }
+    body.menu-open .menu-nav li:nth-child(6) a { transform: translateY(0); transition-delay: 0.35s; }
+    body.menu-open .menu-nav li:nth-child(7) a { transform: translateY(0); transition-delay: 0.40s; }
+    body.menu-open .menu-nav li:nth-child(8) a { transform: translateY(0); transition-delay: 0.45s; }
     .menu-footer {
-      position: absolute; bottom: 40px; left: 10vw; right: 10vw;
       display: flex; justify-content: space-between; align-items: flex-end;
       opacity: 0; transition: opacity 0.4s 0.55s;
     }
@@ -109,14 +110,11 @@
       padding: 200px 40px 100px;
       display: flex; justify-content: center; align-items: center;
       min-height: 100vh;
+      flex-direction: column;
+      text-align: center;
     }
-    .hero-inner {
-      display: flex; align-items: center; justify-content: center;
-      gap: 64px; max-width: 1100px; width: 100%;
-    }
-    .hero-text { flex: 1; max-width: 600px; text-align: left; }
     .header-eyebrow {
-      display: inline-flex; align-items: center; justify-content: flex-start; gap: 10px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
       font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
       color: var(--accent); margin-bottom: 24px;
       opacity: 0; animation: up 0.9s 0.1s forwards;
@@ -124,19 +122,23 @@
       font-weight: 500;
     }
     .header-eyebrow::before { content:''; width: 24px; height: 1.5px; background: var(--accent); }
+    .title-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 18px; margin-bottom: 24px;
+    }
     .page-title {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300;
-      font-size: clamp(48px, 6vw, 80px); line-height: 1.05; letter-spacing: -2px;
+      font-size: clamp(52px, 8vw, 96px); line-height: 1.05; letter-spacing: -2px;
       color: var(--blue);
       opacity: 0; animation: up 0.9s 0.2s forwards;
-      margin-bottom: 24px;
     }
     .page-title em { font-style: italic; color: var(--accent); }
     .header-description {
       font-size: 16px;
       color: var(--muted);
+      max-width: 600px;
       line-height: 1.8;
-      margin: 0 0 40px;
+      margin: 0 auto 40px;
       opacity: 0; animation: up 0.9s 0.3s forwards;
       letter-spacing: 0.02em;
       font-family: 'Roboto', sans-serif;
@@ -165,7 +167,7 @@
     }
 
     .home-avatar {
-      width: 260px; flex-shrink: 0;
+      width: 96px; flex-shrink: 0;
       opacity: 0; animation: up 0.9s 0.05s forwards, tilt 0.9s 0.05s forwards;
     }
     .home-avatar img {
@@ -362,17 +364,14 @@
       .burger-btn { right: 16px; }
       .site-logo { left: 16px; }
       .about-grid { grid-template-columns: 1fr; gap: 32px; }
-      .hero-inner { flex-direction: column-reverse; gap: 32px; text-align: center; }
-      .hero-text { text-align: center; max-width: 100%; }
-      .header-eyebrow { justify-content: center; }
-      .home-avatar { width: 170px; }
     }
     @media (max-width: 560px) {
       .photo-grid { grid-template-columns: repeat(2,1fr); }
       .page-title { font-size: clamp(36px, 6vw, 52px); }
       .header-description { font-size: 14px; }
       .section-block { padding: 70px 20px; }
-      .home-avatar { width: 120px; }
+      .title-row { flex-direction: column; gap: 10px; }
+      .home-avatar { width: 84px; }
     }
   </style>
 </head>
@@ -408,15 +407,13 @@
 <!-- ══════════ VUE 1 : ACCUEIL ══════════ -->
 <div id="view-home" class="view">
   <header id="home" class="page-header">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <div class="header-eyebrow">Étudiant DNMADE Graphisme</div>
-        <h1 class="page-title">Mon<br><em>Portfolio.</em></h1>
-        <p class="header-description">Étudiant en 2ème année de DNMADE Graphisme à Rennes, je capture et je crée — entre photographie, affiche et design graphique. Bienvenue dans mon univers visuel.</p>
-        <a href="#gallery" class="cta-button">Découvrir</a>
-      </div>
+    <div class="header-eyebrow">Étudiant DNMADE Graphisme</div>
+    <div class="title-row">
+      <h1 class="page-title">Mon<br><em>Portfolio.</em></h1>
       <div class="home-avatar"><img src="avatar.png" alt="Illustration portrait de Jules"></div>
     </div>
+    <p class="header-description">Étudiant en 2ème année de DNMADE Graphisme à Rennes, je capture et je crée — entre photographie, affiche et design graphique. Bienvenue dans mon univers visuel.</p>
+    <a href="#gallery" class="cta-button">Découvrir</a>
   </header>
 
   <section class="section-block about-section" id="apropos">
@@ -485,7 +482,7 @@
     </div>
 
     <nav class="subcat-nav">
-      <a href="#photo-rue"       class="subcat-tab" data-sub="photo-rue">Rue</a>
+      <a href="#photo-rue"       class="subcat-tab" data-sub="photo-rue">Rues</a>
       <a href="#photo-animaux"   class="subcat-tab" data-sub="photo-animaux">Animaux</a>
       <a href="#photo-sport"     class="subcat-tab" data-sub="photo-sport">Sports</a>
       <a href="#photo-festivals" class="subcat-tab" data-sub="photo-festivals">Festivals</a>
@@ -495,7 +492,7 @@
     </nav>
 
     <div class="subcat-block" id="photo-rue">
-      <h3 class="subcat-title">Rue</h3>
+      <h3 class="subcat-title">Rues</h3>
       <div class="photo-grid">
         <div class="photo-card"><div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Rue+1')"></div><div class="photo-overlay"><div class="photo-meta"><div class="photo-num">001</div></div></div></div>
         <div class="photo-card"><div class="photo-bg" style="background-image:url('https://via.placeholder.com/400x500?text=Rue+2')"></div><div class="photo-overlay"><div class="photo-meta"><div class="photo-num">002</div></div></div></div>
