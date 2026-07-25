@@ -173,10 +173,23 @@
     .home-avatar img {
       width: 100%; display: block;
       filter: invert(20%) sepia(54%) saturate(3742%) hue-rotate(202deg) brightness(90%) contrast(101%);
+      cursor: pointer;
+      transform-origin: 60% 85%;
+    }
+    .home-avatar img:hover {
+      animation: avatarWiggle 0.7s ease;
     }
     @keyframes tilt {
       from { transform: rotate(0deg); }
       to   { transform: rotate(-7deg); }
+    }
+    @keyframes avatarWiggle {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      15%  { transform: rotate(-10deg) scale(1.07) translateY(-3px); }
+      30%  { transform: rotate(9deg) scale(0.95); }
+      45%  { transform: rotate(-11deg) scale(1.05); }
+      60%  { transform: rotate(7deg) scale(0.97); }
+      75%  { transform: rotate(-4deg) scale(1.03); }
     }
 
 
@@ -438,7 +451,7 @@
 </head>
 <body>
 
-<a href="#home" class="site-logo">its_my_way.</a>
+<a href="#home" class="site-logo" id="siteLogo">its_my_way.</a>
 
 <button class="burger-btn" id="burgerBtn" aria-label="Menu">
   <div class="burger-box"><span></span><span></span><span></span></div>
@@ -677,6 +690,17 @@
     `).join('');
   }
   renderAffichesSeries();
+
+  /* ── Le logo ramène toujours à l'accueil (même si le hash ne change pas) ── */
+  document.getElementById('siteLogo').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (window.location.hash === '#home' || window.location.hash === '') {
+      showView('home');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.location.hash = 'home';
+    }
+  });
 
   const gallery = {
     'grid-logos':           { folder: 'IMAGES/LOGOS/',                        mode: 'contain', files: ['edulab.jpg'] },
