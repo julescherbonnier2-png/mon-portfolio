@@ -299,6 +299,19 @@
       pointer-events: none;
       transition: opacity 0.25s ease;
     }
+    .series-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--white); border: 1px solid var(--rule);
+      box-shadow: 0 6px 16px rgba(7,57,138,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: var(--accent); cursor: pointer;
+      z-index: 6; transition: opacity 0.2s, background 0.2s, color 0.2s;
+    }
+    .series-nav:hover { background: var(--accent); color: var(--white); }
+    .series-nav.is-hidden { opacity: 0; pointer-events: none; }
+    .series-nav-prev { left: 6px; }
+    .series-nav-next { right: 6px; }
     .series-row {
       display: flex; gap: 10px;
       overflow-x: auto; scroll-snap-type: x proximity;
@@ -719,7 +732,11 @@
               </div>
             `).join('')}
           </div>
-          ${files.length > 3 ? '<div class="series-fade"></div>' : ''}
+          ${files.length > 3 ? `
+            <div class="series-fade"></div>
+            <button type="button" class="series-nav series-nav-prev is-hidden" aria-label="Précédent">‹</button>
+            <button type="button" class="series-nav series-nav-next" aria-label="Suivant">›</button>
+          ` : ''}
         </div>
       </div>
     `).join('');
@@ -729,13 +746,27 @@
   document.querySelectorAll('.series-viewport').forEach((viewport) => {
     const row = viewport.querySelector('.series-row');
     const fade = viewport.querySelector('.series-fade');
-    if (!row || !fade) return;
-    const updateFade = () => {
+    const prevBtn = viewport.querySelector('.series-nav-prev');
+    const nextBtn = viewport.querySelector('.series-nav-next');
+    if (!row) return;
+
+    const updateNav = () => {
       const atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4;
-      fade.style.opacity = atEnd ? '0' : '1';
+      const atStart = row.scrollLeft <= 4;
+      if (fade) fade.style.opacity = atEnd ? '0' : '1';
+      if (prevBtn) prevBtn.classList.toggle('is-hidden', atStart);
+      if (nextBtn) nextBtn.classList.toggle('is-hidden', atEnd);
     };
-    row.addEventListener('scroll', updateFade, { passive: true });
-    updateFade();
+    row.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    const scrollByCards = (direction) => {
+      const card = row.querySelector('.photo-card');
+      const step = card ? card.getBoundingClientRect().width + 10 : row.clientWidth * 0.8;
+      row.scrollBy({ left: direction * step * 2, behavior: 'smooth' });
+    };
+    if (prevBtn) prevBtn.addEventListener('click', () => scrollByCards(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => scrollByCards(1));
   });
 
   /* ── Le logo ramène toujours à l'accueil (même si le hash ne change pas) ── */
