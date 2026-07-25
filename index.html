@@ -743,6 +743,8 @@
   }
   renderAffichesSeries();
 
+  const seriesNavUpdaters = [];
+
   document.querySelectorAll('.series-viewport').forEach((viewport) => {
     const row = viewport.querySelector('.series-row');
     const fade = viewport.querySelector('.series-fade');
@@ -759,6 +761,7 @@
     };
     row.addEventListener('scroll', updateNav, { passive: true });
     updateNav();
+    seriesNavUpdaters.push(updateNav);
 
     const scrollByCards = (direction) => {
       const card = row.querySelector('.photo-card');
@@ -768,6 +771,8 @@
     if (prevBtn) prevBtn.addEventListener('click', () => scrollByCards(-1));
     if (nextBtn) nextBtn.addEventListener('click', () => scrollByCards(1));
   });
+
+  window.addEventListener('resize', () => seriesNavUpdaters.forEach((update) => update()));
 
   /* ── Le logo ramène toujours à l'accueil (même si le hash ne change pas) ── */
   document.getElementById('siteLogo').addEventListener('click', (e) => {
@@ -914,6 +919,9 @@
   function showView(view) {
     document.getElementById('view-home').classList.toggle('active', view === 'home');
     document.getElementById('view-gallery').classList.toggle('active', view === 'gallery');
+    if (view === 'gallery') {
+      requestAnimationFrame(() => seriesNavUpdaters.forEach((update) => update()));
+    }
   }
 
   const homeSectionIds = ['apropos', 'contact'];
