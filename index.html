@@ -185,7 +185,9 @@
       position: sticky; top: 84px; z-index: 100;
       background: var(--white); border-bottom: 1px solid var(--rule);
       padding: 0 40px; display: flex; overflow-x: auto; scrollbar-width: none;
+      transition: transform 0.3s ease;
     }
+    .cat-nav.nav-hidden { transform: translateY(-220px); }
     .cat-nav::-webkit-scrollbar { display: none; }
     .cat-tab {
       flex-shrink: 0; padding: 15px 20px;
@@ -646,6 +648,29 @@
     });
   }
   renderGalleries();
+
+  /* ── La barre de catégories se cache en descendant, réapparaît en remontant ── */
+  const catNavBar = document.querySelector('.cat-nav');
+  let lastScrollY = window.scrollY;
+  let catNavHidden = false;
+
+  function handleNavScroll() {
+    const currentY = window.scrollY;
+    const delta = currentY - lastScrollY;
+
+    if (currentY < 120) {
+      catNavBar.classList.remove('nav-hidden');
+      catNavHidden = false;
+    } else if (delta > 6 && !catNavHidden) {
+      catNavBar.classList.add('nav-hidden');
+      catNavHidden = true;
+    } else if (delta < -6 && catNavHidden) {
+      catNavBar.classList.remove('nav-hidden');
+      catNavHidden = false;
+    }
+    lastScrollY = currentY;
+  }
+  window.addEventListener('scroll', () => requestAnimationFrame(handleNavScroll), { passive: true });
 
   /* ── Lightbox : agrandir une image au clic ── */
   const lightbox = document.getElementById('lightbox');
