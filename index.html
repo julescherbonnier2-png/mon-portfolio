@@ -34,6 +34,7 @@
     .view { display: none; }
     .view.active { display: block; }
     #view-gallery.active { padding-top: 84px; }
+    #view-photographie.active { padding-top: 84px; }
 
     /* ══ BURGER ══ */
     .burger-btn {
@@ -257,7 +258,7 @@
     }
 
     /* ══ BLOC SOUS-CATÉGORIE ══ */
-    .subcat-block { margin-bottom: 52px; scroll-margin-top: 210px; }
+    .subcat-block { margin-bottom: 52px; scroll-margin-top: 140px; }
     .subcat-block:last-child { margin-bottom: 0; }
     .subcat-title {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400;
@@ -519,7 +520,7 @@
       <div class="home-avatar"><img src="avatar.png" alt="Illustration portrait de Jules"></div>
     </div>
     <p class="header-description">Étudiant en 2ème année de DNMADE Graphisme à Rennes, je capture et je crée — entre photographie, affiche et design graphique. Bienvenue dans mon univers visuel.</p>
-    <a href="#gallery" class="cta-button">Découvrir</a>
+    <a href="#photographies" class="cta-button">Découvrir</a>
   </header>
 
   <section class="section-block about-section" id="apropos">
@@ -573,28 +574,66 @@
 <div id="view-gallery" class="view">
 
   <nav class="cat-nav">
-    <a href="#photographies"  class="cat-tab" data-target="photographies">Photographies</a>
     <a href="#affiches"       class="cat-tab" data-target="affiches">Affiches</a>
     <a href="#logo"           class="cat-tab" data-target="logo">Logos</a>
     <a href="#web"            class="cat-tab" data-target="web">Webs</a>
     <a href="#editions"       class="cat-tab" data-target="editions">Éditions</a>
   </nav>
 
-  <!-- ══════════ PHOTOGRAPHIES (avec sous-catégories) ══════════ -->
+  <!-- ══════════ AFFICHES ══════════ -->
+  <section class="cat-section" id="affiches">
+    <div class="cat-header">
+      <div class="cat-title"><span class="cat-icon">🎨</span> Affiches</div>
+    </div>
+    <div id="affiches-series"></div>
+    <div class="series-title">Indépendantes</div>
+    <div class="photo-grid" id="grid-affiches-independantes"></div>
+  </section>
+
+  <!-- ══════════ LOGO ══════════ -->
+  <section class="cat-section" id="logo">
+    <div class="cat-header">
+      <div class="cat-title"><span class="cat-icon">✏️</span> Logos</div>
+    </div>
+    <div class="photo-grid" id="grid-logos"></div>
+  </section>
+
+  <!-- ══════════ WEB ══════════ -->
+  <section class="cat-section" id="web">
+    <div class="cat-header">
+      <div class="cat-title"><span class="cat-icon">🌐</span> Webs</div>
+      <div class="cat-badge">Bientôt</div>
+    </div>
+    <div class="photo-grid" id="grid-webs"></div>
+  </section>
+
+  <!-- ══════════ ÉDITIONS ══════════ -->
+  <section class="cat-section" id="editions">
+    <div class="cat-header">
+      <div class="cat-title"><span class="cat-icon">📚</span> Éditions</div>
+    </div>
+    <div class="photo-grid" id="grid-editions"></div>
+  </section>
+
+</div>
+
+<!-- ══════════ VUE 3 : PHOTOGRAPHIES (page à part) ══════════ -->
+<div id="view-photographie" class="view">
+
+  <nav class="cat-nav">
+    <a href="#photo-rue"       class="cat-tab" data-target="photo-rue">Rues</a>
+    <a href="#photo-animaux"   class="cat-tab" data-target="photo-animaux">Animaux</a>
+    <a href="#photo-sport"     class="cat-tab" data-target="photo-sport">Sports</a>
+    <a href="#photo-festivals" class="cat-tab" data-target="photo-festivals">Festivals</a>
+    <a href="#photo-portraits" class="cat-tab" data-target="photo-portraits">Portraits</a>
+    <a href="#photo-montagne"  class="cat-tab" data-target="photo-montagne">Montagnes</a>
+    <a href="#photo-voyage"    class="cat-tab" data-target="photo-voyage">Voyages</a>
+  </nav>
+
   <section class="cat-section" id="photographies">
     <div class="cat-header">
       <div class="cat-title"><span class="cat-icon">📷</span> Photographies</div>
     </div>
-
-    <nav class="subcat-nav">
-      <a href="#photo-rue"       class="subcat-tab" data-sub="photo-rue">Rues</a>
-      <a href="#photo-animaux"   class="subcat-tab" data-sub="photo-animaux">Animaux</a>
-      <a href="#photo-sport"     class="subcat-tab" data-sub="photo-sport">Sports</a>
-      <a href="#photo-festivals" class="subcat-tab" data-sub="photo-festivals">Festivals</a>
-      <a href="#photo-portraits" class="subcat-tab" data-sub="photo-portraits">Portraits</a>
-      <a href="#photo-montagne"  class="subcat-tab" data-sub="photo-montagne">Montagnes</a>
-      <a href="#photo-voyage"    class="subcat-tab" data-sub="photo-voyage">Voyages</a>
-    </nav>
 
     <div class="subcat-block" id="photo-rue">
       <h3 class="subcat-title">Rues</h3>
@@ -630,41 +669,6 @@
       <h3 class="subcat-title">Voyages</h3>
       <div class="photo-grid" id="grid-photo-voyage"></div>
     </div>
-  </section>
-
-  <!-- ══════════ AFFICHES ══════════ -->
-  <section class="cat-section" id="affiches">
-    <div class="cat-header">
-      <div class="cat-title"><span class="cat-icon">🎨</span> Affiches</div>
-    </div>
-    <div id="affiches-series"></div>
-    <div class="series-title">Indépendantes</div>
-    <div class="photo-grid" id="grid-affiches-independantes"></div>
-  </section>
-
-  <!-- ══════════ LOGO ══════════ -->
-  <section class="cat-section" id="logo">
-    <div class="cat-header">
-      <div class="cat-title"><span class="cat-icon">✏️</span> Logos</div>
-    </div>
-    <div class="photo-grid" id="grid-logos"></div>
-  </section>
-
-  <!-- ══════════ WEB ══════════ -->
-  <section class="cat-section" id="web">
-    <div class="cat-header">
-      <div class="cat-title"><span class="cat-icon">🌐</span> Webs</div>
-      <div class="cat-badge">Bientôt</div>
-    </div>
-    <div class="photo-grid" id="grid-webs"></div>
-  </section>
-
-  <!-- ══════════ ÉDITIONS ══════════ -->
-  <section class="cat-section" id="editions">
-    <div class="cat-header">
-      <div class="cat-title"><span class="cat-icon">📚</span> Éditions</div>
-    </div>
-    <div class="photo-grid" id="grid-editions"></div>
   </section>
 
 </div>
@@ -814,7 +818,7 @@
   renderGalleries();
 
   /* ── La barre de catégories se cache en descendant, réapparaît en remontant ── */
-  const catNavBar = document.querySelector('.cat-nav');
+  const catNavBars = document.querySelectorAll('.cat-nav');
   let lastScrollY = window.scrollY;
   let catNavHidden = false;
 
@@ -823,13 +827,13 @@
     const delta = currentY - lastScrollY;
 
     if (currentY < 120) {
-      catNavBar.classList.remove('nav-hidden');
+      catNavBars.forEach((bar) => bar.classList.remove('nav-hidden'));
       catNavHidden = false;
     } else if (delta > 6 && !catNavHidden) {
-      catNavBar.classList.add('nav-hidden');
+      catNavBars.forEach((bar) => bar.classList.add('nav-hidden'));
       catNavHidden = true;
     } else if (delta < -6 && catNavHidden) {
-      catNavBar.classList.remove('nav-hidden');
+      catNavBars.forEach((bar) => bar.classList.remove('nav-hidden'));
       catNavHidden = false;
     }
     lastScrollY = currentY;
@@ -913,12 +917,13 @@
   );
 
   /* ── Routeur : gère quelle "page" afficher selon le hash de l'URL ── */
-  const categoryIds = ['photographies','affiches','logo','web','editions'];
-  const subcatIds = ['photo-rue','photo-animaux','photo-sport','photo-festivals','photo-portraits','photo-montagne','photo-voyage'];
+  const galleryCategoryIds = ['affiches','logo','web','editions'];
+  const photoSubcatIds = ['photo-rue','photo-animaux','photo-sport','photo-festivals','photo-portraits','photo-montagne','photo-voyage'];
 
   function showView(view) {
     document.getElementById('view-home').classList.toggle('active', view === 'home');
     document.getElementById('view-gallery').classList.toggle('active', view === 'gallery');
+    document.getElementById('view-photographie').classList.toggle('active', view === 'photographie');
     if (view === 'gallery') {
       requestAnimationFrame(() => seriesNavUpdaters.forEach((update) => update()));
     }
@@ -944,7 +949,21 @@
       return;
     }
 
-    // 'gallery', une catégorie, ou une sous-catégorie => on affiche la vue galerie
+    // Photographies (page à part) : la catégorie elle-même ou une de ses sous-catégories
+    if (hash === 'photographies' || photoSubcatIds.includes(hash)) {
+      showView('photographie');
+      if (hash === 'photographies') {
+        window.scrollTo({ top: 0 });
+        return;
+      }
+      requestAnimationFrame(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      return;
+    }
+
+    // 'gallery' ou une catégorie de réalisations => on affiche la vue galerie
     showView('gallery');
 
     if (hash === 'gallery') {
@@ -961,7 +980,7 @@
   window.addEventListener('hashchange', router);
   window.addEventListener('DOMContentLoaded', router);
 
-  /* ── Onglet catégorie actif au scroll ── */
+  /* ── Onglet actif au scroll (les deux pages partagent le même mécanisme) ── */
   const catTabs = document.querySelectorAll('.cat-tab[data-target]');
   const catObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -969,17 +988,10 @@
         catTabs.forEach(t => t.classList.toggle('active', t.dataset.target === e.target.id));
     });
   }, { rootMargin: '-30% 0px -60% 0px' });
-  categoryIds.forEach(id => { const el = document.getElementById(id); if (el) catObserver.observe(el); });
-
-  /* ── Onglet sous-catégorie actif au scroll (Photographies) ── */
-  const subTabs = document.querySelectorAll('.subcat-tab[data-sub]');
-  const subObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting)
-        subTabs.forEach(t => t.classList.toggle('active', t.dataset.sub === e.target.id));
-    });
-  }, { rootMargin: '-20% 0px -65% 0px' });
-  subcatIds.forEach(id => { const el = document.getElementById(id); if (el) subObserver.observe(el); });
+  [...galleryCategoryIds, ...photoSubcatIds].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) catObserver.observe(el);
+  });
 </script>
 
 </body>
